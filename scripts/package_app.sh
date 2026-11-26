@@ -4,7 +4,7 @@ set -euo pipefail
 ROOT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 cd "$ROOT_DIR"
 
-VERSION="${VERSION:-1.0.0}"
+VERSION="${VERSION:-1.1.0}"
 APP_NAME="CutWord"
 BUNDLE_ID="com.wangbuilds.cutword"
 DIST_DIR="$ROOT_DIR/dist"
@@ -62,11 +62,11 @@ cat > "$APP_BUNDLE/Contents/Info.plist" <<EOF
   <key>CFBundleShortVersionString</key>
   <string>${VERSION}</string>
   <key>CFBundleVersion</key>
-  <string>100</string>
+  <string>110</string>
   <key>LSApplicationCategoryType</key>
   <string>public.app-category.video</string>
   <key>LSMinimumSystemVersion</key>
-  <string>26.0</string>
+  <string>14.0</string>
   <key>NSHighResolutionCapable</key>
   <true/>
   <key>NSSpeechRecognitionUsageDescription</key>

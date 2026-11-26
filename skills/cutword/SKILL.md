@@ -15,7 +15,7 @@ Check if `cutword` is installed:
 which cutword || ls /Applications/CutWord.app/Contents/MacOS/cutword
 ```
 
-If not installed on macOS 26+ (`arm64`), install via Homebrew:
+If not installed on macOS 14+ (`arm64`), install via Homebrew:
 
 ```bash
 brew install --cask --no-quarantine wang-builds/tap/cutword

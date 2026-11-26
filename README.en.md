@@ -8,11 +8,11 @@
 Pure Swift 6 · **2.2 MB** `.dmg` · Zero Python · Zero 2GB Whisper Downloads · Zero API Keys · 100% Offline
 
 [![Release](https://img.shields.io/github/v/release/wang-builds/cutword?color=10b981&label=Download%20DMG)](https://github.com/wang-builds/cutword/releases/latest)
-[![Platform](https://img.shields.io/badge/macOS-26%2B%20Apple%20Silicon-111827?logo=apple)](https://github.com/wang-builds/cutword/releases/latest)
+[![Platform](https://img.shields.io/badge/macOS-14%2B%20Apple%20Silicon-111827?logo=apple)](https://github.com/wang-builds/cutword/releases/latest)
 [![Swift](https://img.shields.io/badge/Swift-6.2%20Native-F05138?logo=swift&logoColor=white)](Package.swift)
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
 
-[**简体中文**](README.md) · [**English**](README.en.md) · [**Download `.dmg` (2.2 MB)**](https://github.com/wang-builds/cutword/releases/latest/download/CutWord-1.0.0-macos-arm64.dmg)
+[**简体中文**](README.md) · [**English**](README.en.md) · [**Download `.dmg` (2.2 MB)**](https://github.com/wang-builds/cutword/releases/latest/download/CutWord-1.1.0-macos-arm64.dmg)
 
 </div>
 
@@ -45,7 +45,7 @@ Pure Swift 6 · **2.2 MB** `.dmg` · Zero Python · Zero 2GB Whisper Downloads �
 
 ## Install
 
-Requires an Apple Silicon Mac running **macOS 26 (Tahoe) or newer**.
+Requires an Apple Silicon Mac running **macOS 14 (Sonoma) or newer** (`macOS 26+` uses the modern `SpeechAnalyzer` engine; `macOS 14/15` automatically falls back to on-device `SFSpeechRecognizer`).
 
 ```bash
 # Option 1: Homebrew (installs CutWord.app + `cutword` CLI)
@@ -72,6 +72,11 @@ cutword auto input.mp4 --out clean.mp4 --srt clean.srt --fcpxml clean.fcpxml
 # Generate a built-in spoken test video to try CutWord in 5 seconds
 cutword demo --out sample_raw.mp4
 ```
+
+## Custom Development & Commercial Inquiries
+
+Need custom batch video automation, private creator pipelines, or native macOS/iOS & AI Agent tooling for your team?  
+Reach out directly at **`a3152557994@gmail.com`** or open a thread in [GitHub Discussions](https://github.com/wang-builds/cutword/discussions).
 
 ## License
 

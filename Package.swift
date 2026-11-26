@@ -4,7 +4,7 @@ import PackageDescription
 let package = Package(
     name: "CutWord",
     platforms: [
-        .macOS(.v26)
+        .macOS(.v14)
     ],
     products: [
         .library(name: "CutWordCore", targets: ["CutWordCore"]),

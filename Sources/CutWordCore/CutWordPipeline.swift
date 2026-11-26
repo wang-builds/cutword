@@ -198,8 +198,32 @@ public enum SampleVideoBuilder {
             throw ExporterError.exportSessionCreationFailed
         }
         exporter.shouldOptimizeForNetworkUse = true
-        try await exporter.export(to: outputURL, as: .mp4)
+        if #available(macOS 15.0, *) {
+            try await exporter.export(to: outputURL, as: .mp4)
+        } else {
+            try await exportLegacyDemoSession(exporter, to: outputURL)
+        }
         return outputURL
+    }
+
+    @available(macOS, deprecated: 15.0)
+    private static func exportLegacyDemoSession(_ exporter: AVAssetExportSession, to outputURL: URL) async throws {
+        exporter.outputURL = outputURL
+        exporter.outputFileType = .mp4
+        final class Box: @unchecked Sendable {
+            let session: AVAssetExportSession
+            init(_ s: AVAssetExportSession) { self.session = s }
+        }
+        let box = Box(exporter)
+        try await withCheckedThrowingContinuation { (cont: CheckedContinuation<Void, Error>) in
+            box.session.exportAsynchronously {
+                if let err = box.session.error {
+                    cont.resume(throwing: err)
+                } else {
+                    cont.resume(returning: ())
+                }
+            }
+        }
     }
 
     private static func synthesizeMacTTS(text: String, outputURL: URL) throws {

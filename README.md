@@ -8,12 +8,12 @@
 纯原生 Swift 6 打造 · 安装包仅 **2.2 MB** · 0 Python · 0 模型下载 · 0 API Key · 100% 本地离线
 
 [![Release](https://img.shields.io/github/v/release/wang-builds/cutword?color=10b981&label=Download%20DMG)](https://github.com/wang-builds/cutword/releases/latest)
-[![Platform](https://img.shields.io/badge/macOS-26%2B%20Apple%20Silicon-111827?logo=apple)](https://github.com/wang-builds/cutword/releases/latest)
+[![Platform](https://img.shields.io/badge/macOS-14%2B%20Apple%20Silicon-111827?logo=apple)](https://github.com/wang-builds/cutword/releases/latest)
 [![Swift](https://img.shields.io/badge/Swift-6.2%20Native-F05138?logo=swift&logoColor=white)](Package.swift)
 [![Offline](https://img.shields.io/badge/Privacy-100%25%20On--Device-059669)](#技术架构)
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
 
-[**简体中文**](README.md) · [**English**](README.en.md) · [**下载 macOS 安装包 (.dmg)**](https://github.com/wang-builds/cutword/releases/latest/download/CutWord-1.0.0-macos-arm64.dmg) · [**命令行与 AI Agent Skill**](#命令行与-ai-agent-skill)
+[**简体中文**](README.md) · [**English**](README.en.md) · [**下载 macOS 安装包 (.dmg)**](https://github.com/wang-builds/cutword/releases/latest/download/CutWord-1.1.0-macos-arm64.dmg) · [**命令行与 AI Agent Skill**](#命令行与-ai-agent-skill) · [**商务合作 / 企业定制**](#商务合作与企业定制)
 
 </div>
 
@@ -64,7 +64,7 @@
 
 ## 30 秒安装指南
 
-> **系统要求**：Apple Silicon Mac（M1 / M2 / M3 / M4 / M5），系统版本 **macOS 26 (Tahoe) 或更高版本**（依赖系统原生离线 `SpeechAnalyzer` 引擎）。
+> **系统要求**：Apple Silicon Mac（M1 / M2 / M3 / M4 / M5），系统版本 **macOS 14 (Sonoma) / 15 (Sequoia) / 26+ 全兼容**（`macOS 26+` 自动启用新一代 `SpeechAnalyzer` 神经网络逐字引擎；`macOS 14/15` 自动无缝回退系统离线 `SFSpeechRecognizer` 引擎）。
 
 ### 方式一：Homebrew 一键安装（推荐）
 
@@ -76,7 +76,7 @@ brew install --cask --no-quarantine wang-builds/tap/cutword
 
 ### 方式二：直接下载 `.dmg` 安装包（2.2 MB）
 
-1. 前往 [**Releases 页面下载最新版 `CutWord-1.0.0-macos-arm64.dmg`**](https://github.com/wang-builds/cutword/releases/latest/download/CutWord-1.0.0-macos-arm64.dmg)，拖入 `Applications` 文件夹。
+1. 前往 [**Releases 页面下载最新版 `CutWord-1.1.0-macos-arm64.dmg`**](https://github.com/wang-builds/cutword/releases/latest/download/CutWord-1.1.0-macos-arm64.dmg)，拖入 `Applications` 文件夹。
 2. 由于个人开源项目未购买每年 $99 的 Apple Developer ID 公证签名，首次打开若提示「无法验证开发者」，在终端执行一行命令即可放行：
 
 ```bash
@@ -141,6 +141,18 @@ CutWord (Pure Swift 6.2 · Zero External Dependencies)
 ├── CutWordCLI/                      # `cutword` 命令行批处理工具 (demo / analyze / auto)
 └── CutWordApp/                      # 原生 SwiftUI 暗色非线性文字剪辑工作台
 ```
+
+---
+
+## 商务合作与企业定制
+
+如果你所在的团队（MCN 机构、知识博主矩阵、企业内训或硬件厂商）有以下定制与合作需求，欢迎直接联系作者：
+
+- **批量口播自动化流水线定制**：多机位批量粗剪、专属行业词库纠错、私有化 NAS / 本地工作站无人值守成片渲染；
+- **macOS / iOS 原生音视频与 AI Agent 工具定制开发**：基于 Swift / Apple Silicon 本地模型或混合云工作流的专属商业软件研发；
+- **产品推广合作与开源赞助**。
+
+📬 **直联邮箱**：`a3152557994@gmail.com`（邮件标题请注明「CutWord 合作」，24 小时内必回） · 💬 也可直接在 [GitHub Discussions](https://github.com/wang-builds/cutword/discussions) 留言交流。
 
 ---
 

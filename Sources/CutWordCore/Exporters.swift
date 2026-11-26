@@ -361,14 +361,18 @@ public enum VideoExporter {
         var videoComp: AVVideoComposition? = nil
         if burnCaptions && !srcVideoTracks.isEmpty && !plan.captionCues.isEmpty {
             let renderer = KaraokeOverlayCache(cues: plan.captionCues)
-            videoComp = try await AVVideoComposition.videoComposition(
-                with: composition,
-                applyingCIFiltersWithHandler: { request in
-                    let t = request.compositionTime.seconds
-                    let out = renderer.composite(over: request.sourceImage, at: t)
-                    request.finish(with: out, context: nil)
-                }
-            )
+            if #available(macOS 15.0, *) {
+                videoComp = try await AVVideoComposition.videoComposition(
+                    with: composition,
+                    applyingCIFiltersWithHandler: { request in
+                        let t = request.compositionTime.seconds
+                        let out = renderer.composite(over: request.sourceImage, at: t)
+                        request.finish(with: out, context: nil)
+                    }
+                )
+            } else {
+                videoComp = makeLegacyVideoComposition(composition: composition, renderer: renderer)
+            }
         }
 
         return ComposedTimeline(
@@ -377,6 +381,18 @@ public enum VideoExporter {
             audioMix: audioMix,
             renderSize: renderSize
         )
+    }
+
+    @available(macOS, deprecated: 15.0)
+    private static func makeLegacyVideoComposition(
+        composition: AVMutableComposition,
+        renderer: KaraokeOverlayCache
+    ) -> AVVideoComposition {
+        AVMutableVideoComposition(asset: composition) { request in
+            let t = request.compositionTime.seconds
+            let out = renderer.composite(over: request.sourceImage, at: t)
+            request.finish(with: out, context: nil)
+        }
     }
 
     public static func exportMP4(
@@ -406,6 +422,30 @@ public enum VideoExporter {
         exporter.audioMix = timeline.audioMix
         exporter.shouldOptimizeForNetworkUse = true
 
-        try await exporter.export(to: destinationURL, as: .mp4)
+        if #available(macOS 15.0, *) {
+            try await exporter.export(to: destinationURL, as: .mp4)
+        } else {
+            try await exportLegacySession(exporter, to: destinationURL)
+        }
+    }
+
+    @available(macOS, deprecated: 15.0)
+    private static func exportLegacySession(_ exporter: AVAssetExportSession, to destinationURL: URL) async throws {
+        exporter.outputURL = destinationURL
+        exporter.outputFileType = .mp4
+        final class Box: @unchecked Sendable {
+            let session: AVAssetExportSession
+            init(_ s: AVAssetExportSession) { self.session = s }
+        }
+        let box = Box(exporter)
+        try await withCheckedThrowingContinuation { (cont: CheckedContinuation<Void, Error>) in
+            box.session.exportAsynchronously {
+                if let err = box.session.error {
+                    cont.resume(throwing: err)
+                } else {
+                    cont.resume(returning: ())
+                }
+            }
+        }
     }
 }
