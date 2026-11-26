@@ -1,24 +1,49 @@
 import Foundation
 
 public enum SmartCutDetector {
-    private static let singleFillers: Set<String> = [
-        "嗯", "啊", "呃", "额", "噢", "哦", "唉", "诶", "唔",
-        "um", "uh", "er", "ah", "hmm", "uhh", "umm"
+    public static let singleFillers: Set<String> = [
+        "嗯", "啊", "呃", "额", "噢", "哦", "唉", "诶", "欸", "唔", "呐", "啧", "哟", "咦", "唔姆", "噢哟",
+        "um", "uh", "er", "ah", "hmm", "uhh", "umm", "erm", "eh", "hm"
     ]
 
-    private static let multiCharFillers: [String] = [
-        "那个", "就是说", "怎么说呢", "呃那个", "嗯那个"
+    public static let multiCharFillers: [String] = [
+        "那个", "那什么", "那啥", "那个啥", "就是说", "怎么说呢", "怎么讲呢", "怎么讲",
+        "呃那个", "嗯那个", "啊那个", "额那个", "那个就是", "那个就是说", "就是那个", "就那个",
+        "其实那个", "然后那个", "就是呃", "就是嗯", "那个呃", "那个嗯", "呃就是", "嗯就是", "额就是",
+        "哎呀那个", "啧那个", "呃怎么说", "嗯怎么说", "呃怎么讲", "说白了就是说",
+        "你知道吧", "你懂我意思吧", "you know", "i mean", "like um", "uh like", "sort of", "kind of"
     ]
 
-    private static let retakeInterjections: [String] = [
-        "不对重来", "说错了重来", "重来一遍", "重说一遍", "哎不对", "等下重来", "卡壳了", "算了重来"
+    public static let retakeInterjections: [String] = [
+        "不对重来", "说错了重来", "重来一遍", "重说一遍", "哎不对", "诶不对", "欸不对",
+        "等下重来", "等一下重来", "等会重来", "卡壳了", "算了重来", "嘴瓢了", "嘴瓢重来",
+        "念错了", "读错了", "口误重来", "再来一遍", "重新说", "重新录一遍", "重录一下",
+        "我重说一下", "这句重来", "这段重来", "这句不算", "这段掐掉", "这段剪掉",
+        "咔重来", "停重来", "哎呀说错了", "不对不对重来", "说劈叉了", "舌头打结了",
+        "忘词了重来", "串词了重来", "sorry retake", "let me restart", "take two"
     ]
 
-    private static let homophoneBuckets: [String] = [
-        "的得地", "在再载", "做作坐座", "他她它", "题提啼", "视事市式试是世",
-        "频平评屏瓶", "竞净静境镜劲", "剪简检减捡", "字自子紫", "幕目木牧",
-        "器气汽弃契", "员元园源原圆", "费废沸", "零灵铃凌", "工功公攻", "具剧据句"
+    /// 68 mutually-disjoint Mandarin ASR homophone / near-homophone buckets covering high-frequency creator vocabulary
+    public static let homophoneBuckets: [String] = [
+        "的得地", "在再载栽", "做作坐座怍", "他她它塌塔", "题提啼蹄", "视事市式试是世势室释饰",
+        "频平评屏瓶凭萍", "竞净静境镜劲径敬痉", "剪简检减捡碱俭", "字自子紫渍梓", "幕目木牧睦沐募",
+        "器气汽弃契泣砌", "员元园源原圆缘援袁", "费废沸肺扉绯", "零灵铃凌玲菱龄聆", "工功公攻弓恭宫",
+        "具剧据句俱惧炬", "直值职植殖执侄", "播波玻剥钵脖", "号浩耗皓昊镐", "码马玛蚂骂",
+        "款宽髋", "免勉缅冕娩", "开揩慨楷", "软阮", "件见建健剑鉴键舰渐践",
+        "版板坂舨", "本苯畚", "地第帝蒂递缔睇", "方芳坊妨肪", "法发罚乏伐阀筏",
+        "用佣拥庸咏泳踊涌", "户护互沪壶狐糊弧", "体替涕剃屉", "验艳焰雁堰厌谚咽",
+        "效笑校孝啸肖酵", "率绿虑滤律氯", "高糕膏篙羔", "清轻青倾氢卿蜻", "晰希稀息悉惜昔析夕汐",
+        "音因阴姻茵殷", "质致制治置智秩炽帜", "量亮辆晾谅梁粮良凉", "帧真针珍诊阵振镇震侦",
+        "轨鬼诡癸晷", "导岛捣祷蹈", "出初除厨躇雏", "入如儒濡蠕汝", "支知织汁肢脂蜘之芝枝",
+        "持迟池驰匙尺齿耻", "系细戏隙夕", "统桶筒痛恸", "离线里理礼李鲤俚", "网往枉罔惘",
+        "快块筷脍郐", "速素宿粟塑溯夙", "秒渺缈藐淼", "切且窃妾怯锲", "换唤焕涣痪幻宦患",
+        "精经京惊晶睛鲸荆茎", "准谆纯唇醇淳", "识别十石时实食拾蚀", "模磨摩魔膜蘑谟",
+        "型行形刑邢陉", "智志痣挚掷", "能浓农脓侬", "自资姿兹咨滋吱", "动洞冻栋恫胴"
     ]
+
+    public static var totalLexiconGroupCount: Int {
+        singleFillers.count + multiCharFillers.count + retakeInterjections.count + homophoneBuckets.count
+    }
 
     private static let phoneticMap: [Character: Character] = {
         var map: [Character: Character] = [:]
@@ -125,7 +150,10 @@ public enum SmartCutDetector {
 
             // Leading compound hesitation ("那个就是说" / "就是说" / "怎么说呢") or single-char hesitation
             let spokenIndices = clauses[cIdx].tokenIndices.filter { !annotated[$0].isPunctuationOnly }
-            for prefix in ["那个就是说", "嗯那个", "呃那个", "就是说", "怎么说呢"] {
+            let sortedPrefixes = multiCharFillers
+                .filter { $0.count >= 3 && !$0.contains(" ") }
+                .sorted { $0.count > $1.count }
+            for prefix in sortedPrefixes {
                 if plain.hasPrefix(prefix) && plain.count > prefix.count + 2 {
                     var consumed = 0
                     for idx in spokenIndices {

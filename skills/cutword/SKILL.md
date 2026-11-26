@@ -15,11 +15,13 @@ Check if `cutword` is installed:
 which cutword || ls /Applications/CutWord.app/Contents/MacOS/cutword
 ```
 
-If not installed on macOS 14+ (`arm64`), install via Homebrew:
+If not installed on macOS 14+ (`arm64`), install via Homebrew (Cask automatically clears Gatekeeper quarantine in `postflight`):
 
 ```bash
-brew install --cask --no-quarantine wang-builds/tap/cutword
+brew install --cask wang-builds/tap/cutword
 ```
+
+Or download the latest release `.dmg` directly (`https://github.com/wang-builds/cutword/releases/download/v1.1.0/CutWord-1.1.0-macos-arm64.dmg`).
 
 ## Core Commands
 

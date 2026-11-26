@@ -12,7 +12,7 @@ Pure Swift 6 · **2.2 MB** `.dmg` · Zero Python · Zero 2GB Whisper Downloads �
 [![Swift](https://img.shields.io/badge/Swift-6.2%20Native-F05138?logo=swift&logoColor=white)](Package.swift)
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
 
-[**简体中文**](README.md) · [**English**](README.en.md) · [**Download `.dmg` (2.2 MB)**](https://github.com/wang-builds/cutword/releases/latest/download/CutWord-1.1.0-macos-arm64.dmg)
+[**简体中文**](README.md) · [**English**](README.en.md) · [**Download `.dmg` (2.2 MB)**](https://github.com/wang-builds/cutword/releases/download/v1.1.0/CutWord-1.1.0-macos-arm64.dmg)
 
 </div>
 
@@ -48,8 +48,8 @@ Pure Swift 6 · **2.2 MB** `.dmg` · Zero Python · Zero 2GB Whisper Downloads �
 Requires an Apple Silicon Mac running **macOS 14 (Sonoma) or newer** (`macOS 26+` uses the modern `SpeechAnalyzer` engine; `macOS 14/15` automatically falls back to on-device `SFSpeechRecognizer`).
 
 ```bash
-# Option 1: Homebrew (installs CutWord.app + `cutword` CLI)
-brew install --cask --no-quarantine wang-builds/tap/cutword
+# Option 1: Homebrew (installs CutWord.app + `cutword` CLI and clears quarantine automatically)
+brew install --cask wang-builds/tap/cutword
 
 # Option 2: Build from source (zero external dependencies)
 git clone https://github.com/wang-builds/cutword.git
@@ -77,6 +77,12 @@ cutword demo --out sample_raw.mp4
 
 Need custom batch video automation, private creator pipelines, or native macOS/iOS & AI Agent tooling for your team?  
 Reach out directly at **`a3152557994@gmail.com`** or open a thread in [GitHub Discussions](https://github.com/wang-builds/cutword/discussions).
+
+## More Privacy-First Indie Tools by Wang
+
+- [**IslandPrompter**](https://github.com/wang-builds/island-prompter) — Dynamic-Island eye-contact teleprompter with native PiP overlay & offline voice tracking (MIT)
+- [**PaperClean**](https://github.com/wang-builds/paper-clean) — 100% client-side exam sheet handwriting remover & A4 print formatter (MIT)
+- [**PureScan**](https://apps.apple.com/app/id6837347918) · [**CleanShield**](https://apps.apple.com/app/id6836843272) · [**CupSnap**](https://apps.apple.com/app/id6837625024) · [**WaitCam**](https://apps.apple.com/app/id6837624010) — Zero-ad, 100% offline iOS utilities on the App Store
 
 ## License
 

@@ -13,7 +13,7 @@
 [![Offline](https://img.shields.io/badge/Privacy-100%25%20On--Device-059669)](#技术架构)
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
 
-[**简体中文**](README.md) · [**English**](README.en.md) · [**下载 macOS 安装包 (.dmg)**](https://github.com/wang-builds/cutword/releases/latest/download/CutWord-1.1.0-macos-arm64.dmg) · [**命令行与 AI Agent Skill**](#命令行与-ai-agent-skill) · [**商务合作 / 企业定制**](#商务合作与企业定制)
+[**简体中文**](README.md) · [**English**](README.en.md) · [**下载 macOS 安装包 (.dmg)**](https://github.com/wang-builds/cutword/releases/download/v1.1.0/CutWord-1.1.0-macos-arm64.dmg) · [**命令行与 AI Agent Skill**](#命令行与-ai-agent-skill) · [**商务合作 / 企业定制**](#商务合作与企业定制)
 
 </div>
 
@@ -68,15 +68,15 @@
 
 ### 方式一：Homebrew 一键安装（推荐）
 
-自动安装桌面版 `CutWord.app` 与终端命令行 `cutword`，并自动跳过未公证开源应用的首次拦截弹窗：
+自动安装桌面版 `CutWord.app` 与终端命令行 `cutword`（Cask 脚本已内置自动清除未公证应用首次拦截属性）：
 
 ```bash
-brew install --cask --no-quarantine wang-builds/tap/cutword
+brew install --cask wang-builds/tap/cutword
 ```
 
 ### 方式二：直接下载 `.dmg` 安装包（2.2 MB）
 
-1. 前往 [**Releases 页面下载最新版 `CutWord-1.1.0-macos-arm64.dmg`**](https://github.com/wang-builds/cutword/releases/latest/download/CutWord-1.1.0-macos-arm64.dmg)，拖入 `Applications` 文件夹。
+1. 前往 [**Releases 页面下载最新版 `CutWord-1.1.0-macos-arm64.dmg`**](https://github.com/wang-builds/cutword/releases/download/v1.1.0/CutWord-1.1.0-macos-arm64.dmg)，拖入 `Applications` 文件夹。
 2. 由于个人开源项目未购买每年 $99 的 Apple Developer ID 公证签名，首次打开若提示「无法验证开发者」，在终端执行一行命令即可放行：
 
 ```bash
@@ -153,6 +153,19 @@ CutWord (Pure Swift 6.2 · Zero External Dependencies)
 - **产品推广合作与开源赞助**。
 
 📬 **直联邮箱**：`a3152557994@gmail.com`（邮件标题请注明「CutWord 合作」，24 小时内必回） · 💬 也可直接在 [GitHub Discussions](https://github.com/wang-builds/cutword/discussions) 留言交流。
+
+---
+
+## 更多阿王出品独立效率工具
+
+同样坚持 **轻量原生 · 本地离线优先 · 0 开屏广告** 的独立作品：
+
+- 🗣️ [**IslandPrompter · 灵动提词**](https://github.com/wang-builds/island-prompter)（[在线即用](https://wang-builds.github.io/island-prompter/)）— 贴紧灵动岛防飘眼悬浮提词器，支持系统级真画中画置顶与本地语音跟读（MIT 开源）
+- 📄 [**PaperClean · 净卷宝**](https://github.com/wang-builds/paper-clean)（[在线即用](https://wang-builds.github.io/paper-clean/)）— 浏览器本地像素算法秒去试卷红叉与手写笔迹，智能加宽解答留白并直连 A4 打印（MIT 开源）
+- 🔍 [**PureScan · 配料照妖镜**](https://apps.apple.com/app/id6837347918)（iOS）— 免条形码 0.3 秒离线拍食品、护肤品、猫狗粮配料表避雷
+- 🛡️ [**CleanShield · 净盾**](https://apps.apple.com/app/id6836843272)（iOS）— Safari 零权限静态网页去广告 + 原图分享前一键抹除照片 GPS 定位
+- 🧋 [**CupSnap · 贴一杯**](https://apps.apple.com/app/id6837625024)（iOS）— 0 广告离线拍奶茶咖啡自动抠白边贴纸日历与小票识别
+- 🎞️ [**WaitCam · 等片相机**](https://apps.apple.com/app/id6837624010)（iOS）— 拍完锁进暗房 12 小时延迟显影的复古胶卷仪式感相机
 
 ---
 

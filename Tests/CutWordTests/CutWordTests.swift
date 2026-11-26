@@ -141,4 +141,90 @@ struct CutWordTests {
         let outDur = try await outAsset.load(.duration).seconds
         #expect(abs(outDur - plan.outputDuration) < 0.35)
     }
+
+    @Test("Legacy SFSpeech weighted timestamp allocation & offline speech model Chinese guidance")
+    func testWeightedLegacyTokenAllocationAndOfflineGuidance() {
+        let weighted = SpeechEngine.allocateWeightedTokens(
+            substring: "导出FCPXML，",
+            start: 2.00,
+            duration: 1.00,
+            confidence: 0.95
+        )
+        // Should keep "FCPXML" intact rather than splitting into 6 single letters: ["导", "出", "FCPXML", "，"]
+        #expect(weighted.map(\.text) == ["导", "出", "FCPXML", "，"])
+        #expect(abs(weighted.first!.start - 2.00) < 0.0001)
+        #expect(abs(weighted.last!.end - 3.00) < 0.0001)
+
+        let fcpxmlDur = weighted[2].end - weighted[2].start
+        let cjkDur = weighted[0].end - weighted[0].start
+        let punctDur = weighted[3].end - weighted[3].start
+        #expect(fcpxmlDur > cjkDur, "Multi-syllable English acronym should receive more weight than a single CJK character")
+        #expect(punctDur <= 0.06, "Trailing comma should be capped so it does not steal speech duration")
+
+        let fakeMissingErr = NSError(
+            domain: "kLSRErrorDomain",
+            code: 201,
+            userInfo: [NSLocalizedDescriptionKey: "On-device Siri and Dictation is disabled"]
+        )
+        let mapped = SpeechEngine.friendlyRecognitionError(fakeMissingErr, localeIdentifier: "zh-CN")
+        let desc = mapped.errorDescription ?? ""
+        #expect(desc.contains("系统设置 → 键盘 → 听写"))
+    }
+
+    @Test("Expanded 120+ spoken filler, NG retake & homophone lexicon detects creator retakes")
+    func testExpandedCreatorLexiconOver120Groups() {
+        #expect(SmartCutDetector.totalLexiconGroupCount >= 120)
+
+        let raw: [WordToken] = [
+            // Aborted take with homophone typo ("今天实测剪子软件")
+            WordToken(text: "今", start: 0.10, end: 0.25),
+            WordToken(text: "天", start: 0.25, end: 0.40),
+            WordToken(text: "实", start: 0.40, end: 0.55),
+            WordToken(text: "测", start: 0.55, end: 0.70),
+            WordToken(text: "剪", start: 0.70, end: 0.85),
+            WordToken(text: "子", start: 0.85, end: 1.00),
+            // New creator retake interjection ("嘴瓢了")
+            WordToken(text: "嘴", start: 1.40, end: 1.55),
+            WordToken(text: "瓢", start: 1.55, end: 1.70),
+            WordToken(text: "了", start: 1.70, end: 1.85),
+            // Clean take ("今天实测剪字软件。")
+            WordToken(text: "今", start: 2.30, end: 2.45),
+            WordToken(text: "天", start: 2.45, end: 2.60),
+            WordToken(text: "实", start: 2.60, end: 2.75),
+            WordToken(text: "测", start: 2.75, end: 2.90),
+            WordToken(text: "剪", start: 2.90, end: 3.05),
+            WordToken(text: "字", start: 3.05, end: 3.20),
+            WordToken(text: "软", start: 3.20, end: 3.35),
+            WordToken(text: "件", start: 3.35, end: 3.50),
+            WordToken(text: "。", start: 3.50, end: 3.55),
+            // Expanded compound filler ("那个就是")
+            WordToken(text: "那", start: 4.00, end: 4.15),
+            WordToken(text: "个", start: 4.15, end: 4.30),
+            WordToken(text: "就", start: 4.30, end: 4.45),
+            WordToken(text: "是", start: 4.45, end: 4.60),
+            // Final clean clause ("超快！")
+            WordToken(text: "超", start: 5.05, end: 5.25),
+            WordToken(text: "快", start: 5.25, end: 5.45),
+            WordToken(text: "！", start: 5.45, end: 5.50),
+        ]
+
+        let silences = [
+            SilenceSpan(start: 1.00, end: 1.40),
+            SilenceSpan(start: 1.85, end: 2.30),
+            SilenceSpan(start: 3.55, end: 4.00),
+            SilenceSpan(start: 4.60, end: 5.05),
+        ]
+
+        let (_, clauses) = SmartCutDetector.analyzeTranscript(
+            tokens: raw,
+            duration: 6.0,
+            silenceSpans: silences
+        )
+        #expect(clauses.count == 5)
+        #expect(clauses[0].autoReason == .ngRepeat)
+        #expect(clauses[1].autoReason == .ngRepeat)
+        #expect(clauses[2].autoReason == nil)
+        #expect(clauses[3].autoReason == .filler)
+        #expect(clauses[4].autoReason == nil)
+    }
 }
